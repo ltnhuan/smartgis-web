@@ -4,7 +4,7 @@ import {
   Map, Globe, Layers, Search, FileText, Users, BarChart3, 
   MapPin, Mail, Building, Leaf, CloudRain, Landmark, 
   HeartPulse, Car, CheckCircle2, Menu, X, UploadCloud, 
-  Eye, Server, GraduationCap
+  Eye, Server, GraduationCap, Smartphone, Apple, Play
 } from 'lucide-react';
 import Chatbot from './components/Chatbot';
 
@@ -330,136 +330,251 @@ const Applications = () => {
   );
 };
 
+const AppShowcase = () => {
+  return (
+    <section className="py-20 bg-emerald-600 text-white overflow-hidden relative">
+      <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-emerald-500 rounded-full blur-3xl opacity-50"></div>
+      <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-72 h-72 bg-emerald-700 rounded-full blur-3xl opacity-50"></div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+          <div className="md:w-1/2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/30 border border-emerald-400/30 text-emerald-50 text-sm font-medium mb-6">
+                <Smartphone className="w-4 h-4" />
+                <span>SmartGIS Mobile App</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+                Tra cứu quy hoạch <br/>mọi lúc, mọi nơi
+              </h2>
+              <p className="text-emerald-100 text-lg mb-8 leading-relaxed max-w-xl">
+                Ứng dụng SmartGIS Mobile giúp bạn dễ dàng tra cứu thông tin quy hoạch, xem bản đồ địa chính và nhận thông báo cập nhật mới nhất ngay trên điện thoại di động của mình.
+              </p>
+              
+              <ul className="space-y-4 mb-10">
+                {['Định vị GPS chính xác', 'Xem bản đồ offline', 'Cảnh báo thay đổi quy hoạch', 'Tương tác trực tiếp trên bản đồ'].map((item, i) => (
+                  <li key={i} className="flex items-center text-emerald-50 font-medium">
+                    <CheckCircle2 className="h-5 w-5 text-emerald-300 mr-3" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="flex flex-wrap gap-4">
+                <button className="flex items-center gap-3 bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-900 transition-colors shadow-xl">
+                  <Apple className="h-8 w-8" />
+                  <div className="text-left">
+                    <div className="text-[10px] text-gray-300">Download on the</div>
+                    <div className="text-lg font-semibold leading-none">App Store</div>
+                  </div>
+                </button>
+                <button className="flex items-center gap-3 bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-900 transition-colors shadow-xl">
+                  <Play className="h-8 w-8" />
+                  <div className="text-left">
+                    <div className="text-[10px] text-gray-300">GET IT ON</div>
+                    <div className="text-lg font-semibold leading-none">Google Play</div>
+                  </div>
+                </button>
+              </div>
+            </motion.div>
+          </div>
+          
+          <div className="md:w-1/2 relative flex justify-center mt-10 md:mt-0">
+            <motion.div
+              initial={{ y: 100, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, type: "spring" }}
+              className="relative z-10"
+            >
+              <div className="relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-2xl">
+                <div className="w-[148px] h-[18px] bg-gray-800 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
+                <div className="h-[46px] w-[3px] bg-gray-800 absolute -left-[17px] top-[124px] rounded-l-lg"></div>
+                <div className="h-[46px] w-[3px] bg-gray-800 absolute -left-[17px] top-[178px] rounded-l-lg"></div>
+                <div className="h-[64px] w-[3px] bg-gray-800 absolute -right-[17px] top-[142px] rounded-r-lg"></div>
+                <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-white">
+                  <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=600&q=80" className="w-full h-full object-cover" alt="App Screen" referrerPolicy="no-referrer" />
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const Pricing = () => {
+  const [activeTab, setActiveTab] = useState(0);
+
+  const tabs = [
+    "Thiết kế - Khởi tạo",
+    "Phần mềm tra cứu",
+    "Chuyển giao License"
+  ];
+
   return (
     <section id="pricing" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Bảng Giá Dịch Vụ</h2>
           <p className="text-gray-600 text-lg">
             Chi phí minh bạch, linh hoạt theo nhu cầu sử dụng của tổ chức và doanh nghiệp.
           </p>
         </div>
 
-        <div className="space-y-12">
-          {/* Table 1 */}
-          <div className="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-200">
-            <div className="bg-emerald-600 px-6 py-4">
-              <h3 className="text-xl font-bold text-white">1. Phí thiết kế - khởi tạo</h3>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="bg-gray-50 border-b border-gray-200">
-                    <th className="p-4 font-semibold text-gray-700">Dữ liệu</th>
-                    <th className="p-4 font-semibold text-gray-700">Loại dữ liệu</th>
-                    <th className="p-4 font-semibold text-gray-700">Đơn vị tính</th>
-                    <th className="p-4 font-semibold text-gray-700">Chi phí khởi tạo (VNĐ)</th>
-                    <th className="p-4 font-semibold text-gray-700">Chi phí cập nhật (VNĐ)</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  <tr>
-                    <td className="p-4 font-medium text-gray-900" rowSpan={2}>Đối tượng</td>
-                    <td className="p-4 text-gray-600">Icon, hình ảnh</td>
-                    <td className="p-4 text-gray-600">Đối tượng</td>
-                    <td className="p-4 text-gray-900 font-medium">Liên hệ</td>
-                    <td className="p-4 text-gray-900 font-medium">Liên hệ</td>
-                  </tr>
-                  <tr>
-                    <td className="p-4 text-gray-600">Lớp nền dữ liệu</td>
-                    <td className="p-4 text-gray-600">Đối tượng</td>
-                    <td className="p-4 text-gray-900 font-medium">Liên hệ</td>
-                    <td className="p-4 text-gray-900 font-medium">Liên hệ</td>
-                  </tr>
-                  <tr>
-                    <td className="p-4 font-medium text-gray-900">Dữ liệu đối tượng</td>
-                    <td className="p-4 text-gray-600">-</td>
-                    <td className="p-4 text-gray-600">Trường dữ liệu</td>
-                    <td className="p-4 text-gray-900 font-medium">Liên hệ</td>
-                    <td className="p-4 text-gray-900 font-medium">-</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
+          {tabs.map((tab, index) => (
+            <button
+              key={index}
+              onClick={() => setActiveTab(index)}
+              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+                activeTab === index 
+                  ? 'bg-emerald-600 text-white shadow-md shadow-emerald-200 scale-105' 
+                  : 'bg-white text-gray-600 hover:bg-emerald-50 border border-gray-200'
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
 
-          {/* Table 2 */}
-          <div className="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-200">
-            <div className="bg-emerald-600 px-6 py-4">
-              <h3 className="text-xl font-bold text-white">2. Phần mềm ứng dụng phục vụ tra cứu thông tin</h3>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="bg-gray-50 border-b border-gray-200">
-                    <th className="p-4 font-semibold text-gray-700">Dịch vụ</th>
-                    <th className="p-4 font-semibold text-gray-700 text-center">Số tháng sử dụng</th>
-                    <th className="p-4 font-semibold text-gray-700 text-center">ĐVT</th>
-                    <th className="p-4 font-semibold text-gray-700 text-right">Giá bán/tháng (VNĐ)</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {[
-                    { months: 12, price: "Liên hệ" },
-                    { months: 36, price: "Liên hệ" },
-                    { months: 48, price: "Liên hệ" },
-                    { months: 60, price: "Liên hệ" },
-                  ].map((row, i) => (
-                    <tr key={i}>
-                      {i === 0 && (
-                        <td className="p-4 font-medium text-gray-900 align-top" rowSpan={4}>
-                          Phần mềm ứng dụng phục vụ tra cứu thông tin trên nền tảng website
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {/* Table 1 */}
+            {activeTab === 0 && (
+              <div className="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-200">
+                <div className="bg-emerald-600 px-6 py-4">
+                  <h3 className="text-xl font-bold text-white">Phí thiết kế - khởi tạo</h3>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="bg-gray-50 border-b border-gray-200">
+                        <th className="p-4 font-semibold text-gray-700">Dữ liệu</th>
+                        <th className="p-4 font-semibold text-gray-700">Loại dữ liệu</th>
+                        <th className="p-4 font-semibold text-gray-700">Đơn vị tính</th>
+                        <th className="p-4 font-semibold text-gray-700">Chi phí khởi tạo (VNĐ)</th>
+                        <th className="p-4 font-semibold text-gray-700">Chi phí cập nhật (VNĐ)</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+                      <tr className="hover:bg-gray-50 transition-colors">
+                        <td className="p-4 font-medium text-gray-900" rowSpan={2}>Đối tượng</td>
+                        <td className="p-4 text-gray-600">Icon, hình ảnh</td>
+                        <td className="p-4 text-gray-600">Đối tượng</td>
+                        <td className="p-4 text-emerald-600 font-medium">Liên hệ</td>
+                        <td className="p-4 text-emerald-600 font-medium">Liên hệ</td>
+                      </tr>
+                      <tr className="hover:bg-gray-50 transition-colors">
+                        <td className="p-4 text-gray-600">Lớp nền dữ liệu</td>
+                        <td className="p-4 text-gray-600">Đối tượng</td>
+                        <td className="p-4 text-emerald-600 font-medium">Liên hệ</td>
+                        <td className="p-4 text-emerald-600 font-medium">Liên hệ</td>
+                      </tr>
+                      <tr className="hover:bg-gray-50 transition-colors">
+                        <td className="p-4 font-medium text-gray-900">Dữ liệu đối tượng</td>
+                        <td className="p-4 text-gray-600">-</td>
+                        <td className="p-4 text-gray-600">Trường dữ liệu</td>
+                        <td className="p-4 text-emerald-600 font-medium">Liên hệ</td>
+                        <td className="p-4 text-gray-400 font-medium">-</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* Table 2 */}
+            {activeTab === 1 && (
+              <div className="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-200">
+                <div className="bg-emerald-600 px-6 py-4">
+                  <h3 className="text-xl font-bold text-white">Phần mềm ứng dụng phục vụ tra cứu thông tin</h3>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="bg-gray-50 border-b border-gray-200">
+                        <th className="p-4 font-semibold text-gray-700">Dịch vụ</th>
+                        <th className="p-4 font-semibold text-gray-700 text-center">Số tháng sử dụng</th>
+                        <th className="p-4 font-semibold text-gray-700 text-center">ĐVT</th>
+                        <th className="p-4 font-semibold text-gray-700 text-right">Giá bán/tháng (VNĐ)</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+                      {[
+                        { months: 12, price: "Liên hệ" },
+                        { months: 36, price: "Liên hệ" },
+                        { months: 48, price: "Liên hệ" },
+                        { months: 60, price: "Liên hệ" },
+                      ].map((row, i) => (
+                        <tr key={i} className="hover:bg-gray-50 transition-colors">
+                          {i === 0 && (
+                            <td className="p-4 font-medium text-gray-900 align-top" rowSpan={4}>
+                              Phần mềm ứng dụng phục vụ tra cứu thông tin trên nền tảng website
+                            </td>
+                          )}
+                          <td className="p-4 text-gray-600 text-center">{row.months}</td>
+                          <td className="p-4 text-gray-600 text-center">HĐ</td>
+                          <td className="p-4 text-emerald-600 font-medium text-right">{row.price}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="p-4 bg-emerald-50 text-sm text-emerald-800 font-medium border-t border-emerald-100 flex items-center gap-2">
+                  <Smartphone className="w-4 h-4" />
+                  ** Nếu kèm App ứng dụng di động thì nhân lên 1.5 so với giá trên.
+                </div>
+              </div>
+            )}
+
+            {/* Table 3 */}
+            {activeTab === 2 && (
+              <div className="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-200">
+                <div className="bg-emerald-600 px-6 py-4">
+                  <h3 className="text-xl font-bold text-white">Chuyển giao theo license 1 máy chủ</h3>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="bg-gray-50 border-b border-gray-200">
+                        <th className="p-4 font-semibold text-gray-700">Dịch vụ</th>
+                        <th className="p-4 font-semibold text-gray-700 text-center">ĐVT</th>
+                        <th className="p-4 font-semibold text-gray-700 text-right">Giá bán khách hàng (VNĐ)</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+                      <tr className="hover:bg-gray-50 transition-colors">
+                        <td className="p-4 font-medium text-gray-900">
+                          Phần mềm ứng dụng phục vụ tra cứu thông tin trên nền SmartGIS bao gồm nền tảng website, Geoserver, và App di động
                         </td>
-                      )}
-                      <td className="p-4 text-gray-600 text-center">{row.months}</td>
-                      <td className="p-4 text-gray-600 text-center">HĐ</td>
-                      <td className="p-4 text-gray-900 font-medium text-right">{row.price}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="p-4 bg-gray-50 text-sm text-gray-500 italic border-t border-gray-200">
-              ** Nếu kèm App ứng dụng di động thì nhân lên 1.5 so với giá trên.
-            </div>
-          </div>
-
-          {/* Table 3 */}
-          <div className="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-200">
-            <div className="bg-emerald-600 px-6 py-4">
-              <h3 className="text-xl font-bold text-white">3. Chuyển giao theo license 1 máy chủ</h3>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="bg-gray-50 border-b border-gray-200">
-                    <th className="p-4 font-semibold text-gray-700">Dịch vụ</th>
-                    <th className="p-4 font-semibold text-gray-700 text-center">ĐVT</th>
-                    <th className="p-4 font-semibold text-gray-700 text-right">Giá bán khách hàng (VNĐ)</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  <tr>
-                    <td className="p-4 font-medium text-gray-900">
-                      Phần mềm ứng dụng phục vụ tra cứu thông tin trên nền SmartGIS bao gồm nền tảng website, Geoserver, và App di động
-                    </td>
-                    <td className="p-4 text-gray-600 text-center">HĐ</td>
-                    <td className="p-4 text-emerald-600 font-bold text-right text-lg">Liên hệ</td>
-                  </tr>
-                  <tr>
-                    <td className="p-4 font-medium text-gray-900">Bảo trì</td>
-                    <td className="p-4 text-gray-600 text-center">HĐ</td>
-                    <td className="p-4 text-gray-900 font-medium text-right">Liên hệ</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="p-4 bg-gray-50 text-sm text-gray-500 italic border-t border-gray-200">
-              ** Các phí trên không bao gồm máy chủ.
-            </div>
-          </div>
-
+                        <td className="p-4 text-gray-600 text-center">HĐ</td>
+                        <td className="p-4 text-emerald-600 font-bold text-right text-lg">Liên hệ</td>
+                      </tr>
+                      <tr className="hover:bg-gray-50 transition-colors">
+                        <td className="p-4 font-medium text-gray-900">Bảo trì</td>
+                        <td className="p-4 text-gray-600 text-center">HĐ</td>
+                        <td className="p-4 text-emerald-600 font-medium text-right">Liên hệ</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="p-4 bg-gray-50 text-sm text-gray-500 italic border-t border-gray-200">
+                  ** Các phí trên không bao gồm máy chủ.
+                </div>
+              </div>
+            )}
+          </motion.div>
         </div>
       </div>
     </section>
@@ -523,6 +638,7 @@ export default function App() {
         <About />
         <Features />
         <Applications />
+        <AppShowcase />
         <Pricing />
       </main>
       <Footer />
