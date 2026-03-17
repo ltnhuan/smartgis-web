@@ -349,7 +349,7 @@ const AppShowcase = () => {
                 <span>SmartGIS Mobile App</span>
               </div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                Tra cứu quy hoạch <br/>mọi lúc, mọi nơi
+                Tra cứu thông tin bản đồ số <br/>và quy hoạch mọi nơi
               </h2>
               <p className="text-emerald-100 text-lg mb-8 leading-relaxed max-w-xl">
                 Ứng dụng SmartGIS Mobile giúp bạn dễ dàng tra cứu thông tin quy hoạch, xem bản đồ địa chính và nhận thông báo cập nhật mới nhất ngay trên điện thoại di động của mình.
