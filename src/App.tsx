@@ -615,43 +615,71 @@ const Pricing = ({ data }: { data?: any }) => {
 };
 
 const Posts = ({ data }: { data?: any }) => {
+  const [searchTerm, setSearchTerm] = useState('');
   const posts = data?.posts?.filter((p: any) => p.status === 'published') || [];
+
+  const filteredPosts = posts.filter((post: any) => {
+    const term = searchTerm.toLowerCase();
+    return (
+      post.title?.toLowerCase().includes(term) ||
+      post.excerpt?.toLowerCase().includes(term)
+    );
+  });
 
   if (posts.length === 0) return null;
 
   return (
     <section id="posts" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Tin Tức & Bài Viết</h2>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 text-lg mb-8">
             Cập nhật những thông tin mới nhất về công nghệ GIS và các hoạt động của chúng tôi.
           </p>
+          <div className="relative max-w-md mx-auto">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <LucideIcons.Search className="h-5 w-5 text-gray-400" />
+            </div>
+            <input
+              type="text"
+              placeholder="Tìm kiếm bài viết..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-full leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm transition-shadow shadow-sm hover:shadow-md"
+            />
+          </div>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post: any, index: number) => (
-            <motion.div 
-              key={post.id || index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 hover:shadow-xl transition-shadow flex flex-col"
-            >
-              <div className="h-48 overflow-hidden">
-                <img src={post.image} alt={post.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" referrerPolicy="no-referrer" />
-              </div>
-              <div className="p-6 flex-1 flex flex-col">
-                <div className="text-sm text-emerald-600 font-medium mb-2">{new Date(post.date).toLocaleDateString('vi-VN')}</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">{post.title}</h3>
-                <p className="text-gray-600 mb-4 line-clamp-3 flex-1">{post.excerpt}</p>
-                <button className="text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-1 self-start">
-                  Đọc tiếp <LucideIcons.ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        
+        {filteredPosts.length > 0 ? (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredPosts.map((post: any, index: number) => (
+              <motion.div 
+                key={post.id || index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 hover:shadow-xl transition-shadow flex flex-col"
+              >
+                <div className="h-48 overflow-hidden">
+                  <img src={post.image} alt={post.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" referrerPolicy="no-referrer" />
+                </div>
+                <div className="p-6 flex-1 flex flex-col">
+                  <div className="text-sm text-emerald-600 font-medium mb-2">{new Date(post.date).toLocaleDateString('vi-VN')}</div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">{post.title}</h3>
+                  <p className="text-gray-600 mb-4 line-clamp-3 flex-1">{post.excerpt}</p>
+                  <button className="text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-1 self-start">
+                    Đọc tiếp <LucideIcons.ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">Không tìm thấy bài viết nào phù hợp với "{searchTerm}".</p>
+          </div>
+        )}
       </div>
     </section>
   );
