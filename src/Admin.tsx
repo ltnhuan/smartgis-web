@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Save, Plus, Trash2, Edit2, LogOut, MapPin, Image as ImageIcon, Type, LayoutDashboard, Settings, FileText, Users, BarChart3 } from 'lucide-react';
+import ImageGeneratorModal from './components/ImageGeneratorModal';
 
 export default function Admin() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -9,6 +10,9 @@ export default function Admin() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [imageTarget, setImageTarget] = useState<{type: string, index: number} | null>(null);
+  const [imagePrompt, setImagePrompt] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -208,6 +212,24 @@ export default function Admin() {
     const newFaq = [...(data.faq || [])];
     newFaq.splice(index, 1);
     setData({ ...data, faq: newFaq });
+  };
+
+  const openImageModal = (type: string, index: number, title: string) => {
+    setImageTarget({ type, index });
+    setImagePrompt(`Một hình ảnh minh họa cho: ${title}`);
+    setIsImageModalOpen(true);
+  };
+
+  const handleImageSelect = (imageUrl: string) => {
+    if (!imageTarget) return;
+    
+    if (imageTarget.type === 'post') {
+      updatePost(imageTarget.index, 'image', imageUrl);
+    } else if (imageTarget.type === 'team') {
+      updateTeam(imageTarget.index, 'image', imageUrl);
+    } else if (imageTarget.type === 'feature') {
+      updateFeature(imageTarget.index, 'image', imageUrl);
+    }
   };
 
   if (loading) {
@@ -461,7 +483,15 @@ export default function Admin() {
                             />
                           </div>
                           <div className="md:col-span-2">
-                            <label className="block text-sm font-medium text-gray-700 mb-1">URL Ảnh đại diện</label>
+                            <div className="flex justify-between items-center mb-1">
+                              <label className="block text-sm font-medium text-gray-700">URL Ảnh đại diện</label>
+                              <button
+                                onClick={() => openImageModal('post', index, post.title)}
+                                className="text-xs text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1"
+                              >
+                                <ImageIcon className="w-3 h-3" /> Tạo ảnh AI
+                              </button>
+                            </div>
                             <input
                               type="text"
                               value={post.image}
@@ -517,7 +547,15 @@ export default function Admin() {
                             />
                           </div>
                           <div className="md:col-span-2">
-                            <label className="block text-sm font-medium text-gray-700 mb-1">URL Ảnh đại diện</label>
+                            <div className="flex justify-between items-center mb-1">
+                              <label className="block text-sm font-medium text-gray-700">URL Ảnh đại diện</label>
+                              <button
+                                onClick={() => openImageModal('team', index, member.name)}
+                                className="text-xs text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1"
+                              >
+                                <ImageIcon className="w-3 h-3" /> Tạo ảnh AI
+                              </button>
+                            </div>
                             <input
                               type="text"
                               value={member.image}
@@ -714,7 +752,15 @@ export default function Admin() {
                             />
                           </div>
                           <div className="md:col-span-2">
-                            <label className="block text-sm font-medium text-gray-700 mb-1">URL Hình ảnh</label>
+                            <div className="flex justify-between items-center mb-1">
+                              <label className="block text-sm font-medium text-gray-700">URL Hình ảnh</label>
+                              <button
+                                onClick={() => openImageModal('feature', index, feature.title)}
+                                className="text-xs text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1"
+                              >
+                                <ImageIcon className="w-3 h-3" /> Tạo ảnh AI
+                              </button>
+                            </div>
                             <input
                               type="text"
                               value={feature.image}
@@ -785,6 +831,13 @@ export default function Admin() {
           )}
         </div>
       </div>
+      
+      <ImageGeneratorModal 
+        isOpen={isImageModalOpen} 
+        onClose={() => setIsImageModalOpen(false)} 
+        onSelectImage={handleImageSelect}
+        defaultPrompt={imagePrompt}
+      />
     </div>
   );
 }
