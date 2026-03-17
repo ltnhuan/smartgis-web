@@ -92,7 +92,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative"
           >
-            <img src="https://images.unsplash.com/photo-1620614292048-20417208c11c?auto=format&fit=crop&w=1000&q=80" alt="Giao diện hệ thống thông tin địa lý SmartGIS - Bản đồ số và phân tích dữ liệu không gian" className="rounded-2xl shadow-2xl border-4 border-white" referrerPolicy="no-referrer" />
+            <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1000&q=80" alt="Giao diện hệ thống thông tin địa lý SmartGIS - Bản đồ số và phân tích dữ liệu không gian" className="rounded-2xl shadow-2xl border-4 border-white" referrerPolicy="no-referrer" />
             {/* Floating elements */}
             <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl flex items-center gap-4">
               <div className="bg-emerald-100 p-3 rounded-full">
@@ -135,7 +135,7 @@ const About = () => {
           className="mb-16 rounded-3xl overflow-hidden shadow-2xl border-4 border-white relative h-[300px] md:h-[400px] lg:h-[500px]"
         >
           <img 
-            src="https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?auto=format&fit=crop&w=1200&q=80" 
+            src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?auto=format&fit=crop&w=1200&q=80" 
             alt="Bản đồ địa hình và quy hoạch không gian đô thị - Giải pháp SmartGIS" 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
@@ -205,7 +205,7 @@ const Features = () => {
               className="relative rounded-2xl overflow-hidden shadow-lg border-4 border-white"
             >
               <img 
-                src="https://images.unsplash.com/photo-1534043464124-3be32fe000c9?auto=format&fit=crop&w=600&q=80" 
+                src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80" 
                 alt="Mạng lưới kết nối dữ liệu không gian và quy hoạch đô thị thông minh tại Việt Nam" 
                 className="w-full h-auto object-cover"
                 referrerPolicy="no-referrer"
@@ -241,49 +241,49 @@ const Applications = () => {
       icon: <Building className="h-8 w-8"/>, 
       title: "Quy hoạch đô thị", 
       desc: "Quản lý, giám sát quy hoạch xây dựng. Khai thác CSDL trên bản đồ số, hỗ trợ cấp phép xây dựng.",
-      image: "https://images.unsplash.com/photo-1584467735815-f778f274e296?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1614511113619-1582e05f6392?auto=format&fit=crop&w=600&q=80"
     },
     { 
       icon: <Leaf className="h-8 w-8"/>, 
       title: "Nông nghiệp", 
       desc: "Kiểm soát hiểm họa, mô hình phân tích đất/mưa, canh tác chính xác, dự đoán sản lượng.",
-      image: "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1519999482648-25049ddd37b1?auto=format&fit=crop&w=600&q=80"
     },
     { 
       icon: <Globe className="h-8 w-8"/>, 
       title: "Môi trường", 
       desc: "Quản lý tài nguyên, đánh giá sự cố môi trường, hoạch định chính sách.",
-      image: "https://images.unsplash.com/photo-1614511113619-1582e05f6392?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1582653291997-059f5f4780f2?auto=format&fit=crop&w=600&q=80"
     },
     { 
       icon: <CloudRain className="h-8 w-8"/>, 
       title: "Khí tượng thủy văn", 
       desc: "Theo dõi và phân tích dữ liệu thời tiết, thủy văn theo không gian.",
-      image: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1534043464124-3be32fe000c9?auto=format&fit=crop&w=600&q=80"
     },
     { 
       icon: <Car className="h-8 w-8"/>, 
       title: "Giao thông", 
       desc: "Quản lý hạ tầng giao thông, phân tích luồng tuyến và điều phối.",
-      image: "https://images.unsplash.com/photo-1519999482648-25049ddd37b1?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?auto=format&fit=crop&w=600&q=80"
     },
     { 
       icon: <Landmark className="h-8 w-8"/>, 
       title: "Chính quyền địa phương", 
       desc: "Tích hợp dịch vụ công, minh bạch thông tin quy hoạch cho người dân.",
-      image: "https://images.unsplash.com/photo-1542361345-89e58247f2d5?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1526778548025-fa2fbf8b1c0b?auto=format&fit=crop&w=600&q=80"
     },
     { 
       icon: <HeartPulse className="h-8 w-8"/>, 
       title: "Y tế", 
       desc: "Bản đồ cơ sở y tế, phân tích dịch tễ học theo khu vực.",
-      image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80"
     },
     { 
       icon: <GraduationCap className="h-8 w-8"/>, 
       title: "Giáo dục", 
       desc: "Quản lý mạng lưới trường học, thông tin tuyển sinh theo tuyến.",
-      image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80"
     },
   ];
 
@@ -397,7 +397,7 @@ const AppShowcase = () => {
                 <div className="h-[46px] w-[3px] bg-gray-800 absolute -left-[17px] top-[178px] rounded-l-lg"></div>
                 <div className="h-[64px] w-[3px] bg-gray-800 absolute -right-[17px] top-[142px] rounded-r-lg"></div>
                 <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-white">
-                  <img src="https://images.unsplash.com/photo-1620614292048-20417208c11c?auto=format&fit=crop&w=600&q=80" className="w-full h-full object-cover" alt="Ứng dụng di động SmartGIS - Tra cứu thông tin bản đồ số và quy hoạch mọi nơi" referrerPolicy="no-referrer" />
+                  <img src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?auto=format&fit=crop&w=600&q=80" className="w-full h-full object-cover" alt="Ứng dụng di động SmartGIS - Tra cứu thông tin bản đồ số và quy hoạch mọi nơi" referrerPolicy="no-referrer" />
                 </div>
               </div>
             </motion.div>
