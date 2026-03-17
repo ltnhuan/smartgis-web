@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Save, Plus, Trash2, Edit2, LogOut, MapPin, Image as ImageIcon, Type, LayoutDashboard } from 'lucide-react';
+import { Save, Plus, Trash2, Edit2, LogOut, MapPin, Image as ImageIcon, Type, LayoutDashboard, Settings, FileText, Users, BarChart3 } from 'lucide-react';
 
 export default function Admin() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -8,7 +8,7 @@ export default function Admin() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [activeTab, setActiveTab] = useState('hero');
+  const [activeTab, setActiveTab] = useState('dashboard');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -138,6 +138,78 @@ export default function Admin() {
     setData({ ...data, locations: newLocations });
   };
 
+  const updateSetting = (field: string, value: string) => {
+    setData({ ...data, settings: { ...data.settings, [field]: value } });
+  };
+
+  const updatePost = (index: number, field: string, value: string) => {
+    const newPosts = [...data.posts];
+    newPosts[index] = { ...newPosts[index], [field]: value };
+    setData({ ...data, posts: newPosts });
+  };
+
+  const addPost = () => {
+    const newPost = {
+      id: Date.now().toString(),
+      title: "Bài viết mới",
+      excerpt: "Mô tả ngắn...",
+      content: "Nội dung bài viết...",
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
+      date: new Date().toISOString().split('T')[0],
+      status: "draft"
+    };
+    setData({ ...data, posts: [...(data.posts || []), newPost] });
+  };
+
+  const removePost = (index: number) => {
+    const newPosts = [...data.posts];
+    newPosts.splice(index, 1);
+    setData({ ...data, posts: newPosts });
+  };
+
+  const updateTeam = (index: number, field: string, value: string) => {
+    const newTeam = [...(data.team || [])];
+    newTeam[index] = { ...newTeam[index], [field]: value };
+    setData({ ...data, team: newTeam });
+  };
+
+  const addTeamMember = () => {
+    const newMember = {
+      id: Date.now().toString(),
+      name: "Tên thành viên",
+      role: "Chức vụ",
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80"
+    };
+    setData({ ...data, team: [...(data.team || []), newMember] });
+  };
+
+  const removeTeamMember = (index: number) => {
+    const newTeam = [...(data.team || [])];
+    newTeam.splice(index, 1);
+    setData({ ...data, team: newTeam });
+  };
+
+  const updateFaq = (index: number, field: string, value: string) => {
+    const newFaq = [...(data.faq || [])];
+    newFaq[index] = { ...newFaq[index], [field]: value };
+    setData({ ...data, faq: newFaq });
+  };
+
+  const addFaq = () => {
+    const newQuestion = {
+      id: Date.now().toString(),
+      question: "Câu hỏi mới?",
+      answer: "Câu trả lời..."
+    };
+    setData({ ...data, faq: [...(data.faq || []), newQuestion] });
+  };
+
+  const removeFaq = (index: number) => {
+    const newFaq = [...(data.faq || [])];
+    newFaq.splice(index, 1);
+    setData({ ...data, faq: newFaq });
+  };
+
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center">Đang tải...</div>;
   }
@@ -190,6 +262,30 @@ export default function Admin() {
         </div>
         <nav className="p-4 space-y-2">
           <button
+            onClick={() => setActiveTab('dashboard')}
+            className={`w-full flex items-center px-4 py-2 rounded-md ${activeTab === 'dashboard' ? 'bg-emerald-50 text-emerald-700' : 'text-gray-600 hover:bg-gray-50'}`}
+          >
+            <LayoutDashboard className="h-5 w-5 mr-3" /> Tổng quan
+          </button>
+          <button
+            onClick={() => setActiveTab('posts')}
+            className={`w-full flex items-center px-4 py-2 rounded-md ${activeTab === 'posts' ? 'bg-emerald-50 text-emerald-700' : 'text-gray-600 hover:bg-gray-50'}`}
+          >
+            <FileText className="h-5 w-5 mr-3" /> Bài viết
+          </button>
+          <button
+            onClick={() => setActiveTab('team')}
+            className={`w-full flex items-center px-4 py-2 rounded-md ${activeTab === 'team' ? 'bg-emerald-50 text-emerald-700' : 'text-gray-600 hover:bg-gray-50'}`}
+          >
+            <Users className="h-5 w-5 mr-3" /> Đội ngũ
+          </button>
+          <button
+            onClick={() => setActiveTab('faq')}
+            className={`w-full flex items-center px-4 py-2 rounded-md ${activeTab === 'faq' ? 'bg-emerald-50 text-emerald-700' : 'text-gray-600 hover:bg-gray-50'}`}
+          >
+            <FileText className="h-5 w-5 mr-3" /> FAQ
+          </button>
+          <button
             onClick={() => setActiveTab('hero')}
             className={`w-full flex items-center px-4 py-2 rounded-md ${activeTab === 'hero' ? 'bg-emerald-50 text-emerald-700' : 'text-gray-600 hover:bg-gray-50'}`}
           >
@@ -206,6 +302,12 @@ export default function Admin() {
             className={`w-full flex items-center px-4 py-2 rounded-md ${activeTab === 'locations' ? 'bg-emerald-50 text-emerald-700' : 'text-gray-600 hover:bg-gray-50'}`}
           >
             <MapPin className="h-5 w-5 mr-3" /> Vị trí bản đồ
+          </button>
+          <button
+            onClick={() => setActiveTab('settings')}
+            className={`w-full flex items-center px-4 py-2 rounded-md ${activeTab === 'settings' ? 'bg-emerald-50 text-emerald-700' : 'text-gray-600 hover:bg-gray-50'}`}
+          >
+            <Settings className="h-5 w-5 mr-3" /> Cài đặt
           </button>
         </nav>
         <div className="absolute bottom-0 w-64 p-4 border-t border-gray-200">
@@ -241,6 +343,295 @@ export default function Admin() {
 
           {data && (
             <div className="bg-white rounded-lg shadow-sm p-6">
+              {activeTab === 'dashboard' && (
+                <div className="space-y-6">
+                  <h2 className="text-lg font-medium text-gray-900 border-b pb-2">Tổng quan hệ thống</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="bg-emerald-50 p-6 rounded-xl border border-emerald-100">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-medium text-emerald-600 mb-1">Tổng số bài viết</p>
+                          <p className="text-3xl font-bold text-emerald-900">{data.posts?.length || 0}</p>
+                        </div>
+                        <div className="bg-emerald-200 p-3 rounded-lg text-emerald-700">
+                          <FileText className="h-6 w-6" />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-medium text-blue-600 mb-1">Lĩnh vực ứng dụng</p>
+                          <p className="text-3xl font-bold text-blue-900">{data.features?.length || 0}</p>
+                        </div>
+                        <div className="bg-blue-200 p-3 rounded-lg text-blue-700">
+                          <ImageIcon className="h-6 w-6" />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-purple-50 p-6 rounded-xl border border-purple-100">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-medium text-purple-600 mb-1">Vị trí bản đồ</p>
+                          <p className="text-3xl font-bold text-purple-900">{data.locations?.length || 0}</p>
+                        </div>
+                        <div className="bg-purple-200 p-3 rounded-lg text-purple-700">
+                          <MapPin className="h-6 w-6" />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-orange-50 p-6 rounded-xl border border-orange-100">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-medium text-orange-600 mb-1">Lượt truy cập (Demo)</p>
+                          <p className="text-3xl font-bold text-orange-900">1,248</p>
+                        </div>
+                        <div className="bg-orange-200 p-3 rounded-lg text-orange-700">
+                          <BarChart3 className="h-6 w-6" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'posts' && (
+                <div className="space-y-6">
+                  <div className="flex justify-between items-center border-b pb-2">
+                    <h2 className="text-lg font-medium text-gray-900">Quản lý bài viết</h2>
+                    <button onClick={addPost} className="flex items-center text-sm text-emerald-600 hover:text-emerald-700">
+                      <Plus className="h-4 w-4 mr-1" /> Viết bài mới
+                    </button>
+                  </div>
+                  <div className="space-y-8">
+                    {(data.posts || []).map((post: any, index: number) => (
+                      <div key={post.id} className="p-4 border border-gray-200 rounded-lg relative bg-gray-50">
+                        <button
+                          onClick={() => removePost(index)}
+                          className="absolute top-4 right-4 text-red-500 hover:text-red-700"
+                        >
+                          <Trash2 className="h-5 w-5" />
+                        </button>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="md:col-span-2">
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Tiêu đề bài viết</label>
+                            <input
+                              type="text"
+                              value={post.title}
+                              onChange={(e) => updatePost(index, 'title', e.target.value)}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Ngày đăng</label>
+                            <input
+                              type="date"
+                              value={post.date}
+                              onChange={(e) => updatePost(index, 'date', e.target.value)}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Trạng thái</label>
+                            <select
+                              value={post.status}
+                              onChange={(e) => updatePost(index, 'status', e.target.value)}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                            >
+                              <option value="published">Đã xuất bản</option>
+                              <option value="draft">Bản nháp</option>
+                            </select>
+                          </div>
+                          <div className="md:col-span-2">
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Mô tả ngắn (Excerpt)</label>
+                            <textarea
+                              value={post.excerpt}
+                              onChange={(e) => updatePost(index, 'excerpt', e.target.value)}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                              rows={2}
+                            />
+                          </div>
+                          <div className="md:col-span-2">
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Nội dung chi tiết</label>
+                            <textarea
+                              value={post.content}
+                              onChange={(e) => updatePost(index, 'content', e.target.value)}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                              rows={6}
+                            />
+                          </div>
+                          <div className="md:col-span-2">
+                            <label className="block text-sm font-medium text-gray-700 mb-1">URL Ảnh đại diện</label>
+                            <input
+                              type="text"
+                              value={post.image}
+                              onChange={(e) => updatePost(index, 'image', e.target.value)}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md mb-2"
+                            />
+                            {post.image && <img src={post.image} alt="Preview" className="h-32 rounded-md object-cover" />}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'team' && (
+                <div className="space-y-6">
+                  <div className="flex justify-between items-center border-b pb-2">
+                    <h2 className="text-lg font-medium text-gray-900">Quản lý Đội ngũ</h2>
+                    <button
+                      onClick={addTeamMember}
+                      className="flex items-center text-sm text-emerald-600 hover:text-emerald-700 font-medium"
+                    >
+                      <Plus className="h-4 w-4 mr-1" /> Thêm thành viên
+                    </button>
+                  </div>
+                  <div className="space-y-6">
+                    {(data.team || []).map((member: any, index: number) => (
+                      <div key={member.id || index} className="p-4 border border-gray-200 rounded-lg relative bg-gray-50">
+                        <button
+                          onClick={() => removeTeamMember(index)}
+                          className="absolute top-4 right-4 text-red-500 hover:text-red-700"
+                        >
+                          <Trash2 className="h-5 w-5" />
+                        </button>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Tên thành viên</label>
+                            <input
+                              type="text"
+                              value={member.name}
+                              onChange={(e) => updateTeam(index, 'name', e.target.value)}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Chức vụ</label>
+                            <input
+                              type="text"
+                              value={member.role}
+                              onChange={(e) => updateTeam(index, 'role', e.target.value)}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                            />
+                          </div>
+                          <div className="md:col-span-2">
+                            <label className="block text-sm font-medium text-gray-700 mb-1">URL Ảnh đại diện</label>
+                            <input
+                              type="text"
+                              value={member.image}
+                              onChange={(e) => updateTeam(index, 'image', e.target.value)}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md mb-2"
+                            />
+                            {member.image && <img src={member.image} alt="Preview" className="h-24 w-24 rounded-full object-cover" />}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'faq' && (
+                <div className="space-y-6">
+                  <div className="flex justify-between items-center border-b pb-2">
+                    <h2 className="text-lg font-medium text-gray-900">Quản lý FAQ</h2>
+                    <button
+                      onClick={addFaq}
+                      className="flex items-center text-sm text-emerald-600 hover:text-emerald-700 font-medium"
+                    >
+                      <Plus className="h-4 w-4 mr-1" /> Thêm câu hỏi
+                    </button>
+                  </div>
+                  <div className="space-y-6">
+                    {(data.faq || []).map((item: any, index: number) => (
+                      <div key={item.id || index} className="p-4 border border-gray-200 rounded-lg relative bg-gray-50">
+                        <button
+                          onClick={() => removeFaq(index)}
+                          className="absolute top-4 right-4 text-red-500 hover:text-red-700"
+                        >
+                          <Trash2 className="h-5 w-5" />
+                        </button>
+                        <div className="grid grid-cols-1 gap-4 pr-10">
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Câu hỏi</label>
+                            <input
+                              type="text"
+                              value={item.question}
+                              onChange={(e) => updateFaq(index, 'question', e.target.value)}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Câu trả lời</label>
+                            <textarea
+                              value={item.answer}
+                              onChange={(e) => updateFaq(index, 'answer', e.target.value)}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                              rows={3}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'settings' && (
+                <div className="space-y-6">
+                  <h2 className="text-lg font-medium text-gray-900 border-b pb-2">Cài đặt chung</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="md:col-span-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Tên trang web</label>
+                      <input
+                        type="text"
+                        value={data.settings?.siteName || ''}
+                        onChange={(e) => updateSetting('siteName', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Mô tả trang web</label>
+                      <textarea
+                        value={data.settings?.siteDescription || ''}
+                        onChange={(e) => updateSetting('siteDescription', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                        rows={3}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Email liên hệ</label>
+                      <input
+                        type="email"
+                        value={data.settings?.contactEmail || ''}
+                        onChange={(e) => updateSetting('contactEmail', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Số điện thoại</label>
+                      <input
+                        type="text"
+                        value={data.settings?.contactPhone || ''}
+                        onChange={(e) => updateSetting('contactPhone', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Địa chỉ</label>
+                      <input
+                        type="text"
+                        value={data.settings?.address || ''}
+                        onChange={(e) => updateSetting('address', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {activeTab === 'hero' && (
                 <div className="space-y-6">
                   <h2 className="text-lg font-medium text-gray-900 border-b pb-2">Nội dung chính (Hero)</h2>

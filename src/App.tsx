@@ -15,13 +15,15 @@ const renderIcon = (iconName: string, className: string) => {
   return <IconComponent className={className} />;
 };
 
-const Navbar = () => {
+const Navbar = ({ data }: { data?: any }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const siteName = data?.settings?.siteName || "SmartGIS";
 
   const links = [
     { name: 'Giới thiệu', href: '#about' },
     { name: 'Tính năng', href: '#features' },
     { name: 'Ứng dụng', href: '#applications' },
+    { name: 'Bài viết', href: '#posts' },
     { name: 'Bảng giá', href: '#pricing' },
     { name: 'Liên hệ', href: '#contact' },
   ];
@@ -32,7 +34,7 @@ const Navbar = () => {
         <div className="flex justify-between h-20">
           <div className="flex items-center">
             <MapPin className="h-8 w-8 text-emerald-600" />
-            <span className="ml-2 text-2xl font-bold text-emerald-800">SmartGIS</span>
+            <span className="ml-2 text-2xl font-bold text-emerald-800">{siteName}</span>
           </div>
           <div className="hidden md:flex items-center space-x-8">
             {links.map((link) => (
@@ -122,7 +124,7 @@ const Hero = ({ data }: { data?: any }) => {
   );
 };
 
-const About = () => {
+const About = ({ data }: { data?: any }) => {
   const basics = [
     { icon: <Map className="h-6 w-6" />, title: "Tạo & Nhập dữ liệu", desc: "Tạo hoặc nhập dữ liệu không gian và địa lý dễ dàng." },
     { icon: <Layers className="h-6 w-6" />, title: "Tổ chức & Quản lý", desc: "Tổ chức và quản lý dữ liệu không gian trên server." },
@@ -130,7 +132,7 @@ const About = () => {
     { icon: <BarChart3 className="h-6 w-6" />, title: "Phân tích dữ liệu", desc: "Công cụ phân tích dữ liệu không gian mạnh mẽ." },
   ];
 
-  const team = [
+  const team = data?.team || [
     { name: "Nguyễn Văn A", role: "Giám đốc điều hành", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80" },
     { name: "Trần Thị B", role: "Trưởng phòng Kỹ thuật", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=300&q=80" },
     { name: "Lê Văn C", role: "Chuyên gia GIS", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80" },
@@ -401,7 +403,7 @@ const AppShowcase = () => {
   );
 };
 
-const Pricing = () => {
+const Pricing = ({ data }: { data?: any }) => {
   const [activeTab, setActiveTab] = useState(0);
 
   const tabs = [
@@ -409,6 +411,25 @@ const Pricing = () => {
     "Phần mềm tra cứu",
     "Chuyển giao License",
     "Câu hỏi thường gặp"
+  ];
+
+  const faq = data?.faq || [
+    {
+      question: "SmartGIS có hỗ trợ tích hợp với các hệ thống ERP hiện có không?",
+      answer: "Có, SmartGIS cung cấp API mở và các công cụ tích hợp linh hoạt, cho phép kết nối dễ dàng với các hệ thống ERP, CRM và các phần mềm quản lý khác của doanh nghiệp."
+    },
+    {
+      question: "Dữ liệu của tôi có được bảo mật an toàn không?",
+      answer: "Bảo mật dữ liệu là ưu tiên hàng đầu của chúng tôi. SmartGIS áp dụng các tiêu chuẩn bảo mật quốc tế, mã hóa dữ liệu đầu cuối và hệ thống phân quyền truy cập chặt chẽ."
+    },
+    {
+      question: "Thời gian triển khai hệ thống mất bao lâu?",
+      answer: "Thời gian triển khai phụ thuộc vào quy mô và yêu cầu cụ thể của từng dự án. Thông thường, một dự án cơ bản có thể triển khai trong vòng 2-4 tuần."
+    },
+    {
+      question: "Có hỗ trợ đào tạo sử dụng sau khi triển khai không?",
+      answer: "Chắc chắn rồi. Chúng tôi cung cấp các khóa đào tạo chuyên sâu cho người dùng cuối và quản trị viên hệ thống, kèm theo tài liệu hướng dẫn chi tiết."
+    }
   ];
 
   return (
@@ -574,30 +595,13 @@ const Pricing = () => {
               <div className="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-200 p-8">
                 <h3 className="text-2xl font-bold text-gray-900 mb-8 border-b border-gray-100 pb-4">Câu hỏi thường gặp (FAQ)</h3>
                 <div className="space-y-6">
-                  {[
-                    {
-                      q: "SmartGIS có hỗ trợ dùng thử không?",
-                      a: "Có, chúng tôi cung cấp gói dùng thử 14 ngày miễn phí với đầy đủ các tính năng cơ bản để bạn trải nghiệm trước khi quyết định."
-                    },
-                    {
-                      q: "Chi phí bảo trì hàng năm được tính như thế nào?",
-                      a: "Chi phí bảo trì thường chiếm từ 15-20% giá trị hợp đồng phần mềm, bao gồm cập nhật tính năng mới, vá lỗi và hỗ trợ kỹ thuật 24/7."
-                    },
-                    {
-                      q: "Dữ liệu của tôi có được bảo mật an toàn không?",
-                      a: "Hoàn toàn an toàn. SmartGIS áp dụng các tiêu chuẩn bảo mật quốc tế, mã hóa dữ liệu đầu cuối và sao lưu định kỳ trên hệ thống máy chủ độc lập."
-                    },
-                    {
-                      q: "Thời gian triển khai hệ thống mất bao lâu?",
-                      a: "Thời gian triển khai phụ thuộc vào quy mô và độ phức tạp của dữ liệu, thông thường từ 2 đến 8 tuần làm việc kể từ khi ký hợp đồng."
-                    }
-                  ].map((faq, i) => (
+                  {faq.map((item: any, i: number) => (
                     <div key={i} className="border-b border-gray-100 pb-6 last:border-0 last:pb-0">
                       <h4 className="text-lg font-semibold text-emerald-700 mb-2 flex items-start gap-2">
                         <span className="bg-emerald-100 text-emerald-700 rounded-full w-6 h-6 flex items-center justify-center text-sm flex-shrink-0 mt-0.5">Q</span>
-                        {faq.q}
+                        {item.question}
                       </h4>
-                      <p className="text-gray-600 pl-8 leading-relaxed">{faq.a}</p>
+                      <p className="text-gray-600 pl-8 leading-relaxed">{item.answer}</p>
                     </div>
                   ))}
                 </div>
@@ -610,7 +614,52 @@ const Pricing = () => {
   );
 };
 
-const Footer = () => {
+const Posts = ({ data }: { data?: any }) => {
+  const posts = data?.posts?.filter((p: any) => p.status === 'published') || [];
+
+  if (posts.length === 0) return null;
+
+  return (
+    <section id="posts" className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Tin Tức & Bài Viết</h2>
+          <p className="text-gray-600 text-lg">
+            Cập nhật những thông tin mới nhất về công nghệ GIS và các hoạt động của chúng tôi.
+          </p>
+        </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.map((post: any, index: number) => (
+            <motion.div 
+              key={post.id || index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 hover:shadow-xl transition-shadow flex flex-col"
+            >
+              <div className="h-48 overflow-hidden">
+                <img src={post.image} alt={post.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" referrerPolicy="no-referrer" />
+              </div>
+              <div className="p-6 flex-1 flex flex-col">
+                <div className="text-sm text-emerald-600 font-medium mb-2">{new Date(post.date).toLocaleDateString('vi-VN')}</div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">{post.title}</h3>
+                <p className="text-gray-600 mb-4 line-clamp-3 flex-1">{post.excerpt}</p>
+                <button className="text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-1 self-start">
+                  Đọc tiếp <LucideIcons.ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Footer = ({ data }: { data?: any }) => {
+  const settings = data?.settings || {};
+  
   return (
     <footer id="contact" className="bg-emerald-900 text-emerald-100 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -618,10 +667,10 @@ const Footer = () => {
           <div>
             <div className="flex items-center mb-6">
               <MapPin className="h-8 w-8 text-emerald-400" />
-              <span className="ml-2 text-2xl font-bold text-white">SmartGIS</span>
+              <span className="ml-2 text-2xl font-bold text-white">{settings.siteName || "SmartGIS"}</span>
             </div>
             <p className="text-emerald-200 mb-6">
-              Bản đồ thông minh - Giải pháp quản lý dữ liệu không gian toàn diện cho doanh nghiệp và tổ chức.
+              {settings.siteDescription || "Bản đồ thông minh - Giải pháp quản lý dữ liệu không gian toàn diện cho doanh nghiệp và tổ chức."}
             </p>
           </div>
           <div className="md:col-span-2 grid sm:grid-cols-2 gap-8">
@@ -630,11 +679,15 @@ const Footer = () => {
               <ul className="space-y-4">
                 <li className="flex items-start">
                   <MapPin className="h-5 w-5 text-emerald-400 mr-3 mt-1 flex-shrink-0" />
-                  <span>MobiFone Vĩnh Long & Công ty CP Lera Group</span>
+                  <span>{settings.address || "MobiFone Vĩnh Long & Công ty CP Lera Group"}</span>
                 </li>
                 <li className="flex items-center">
                   <Mail className="h-5 w-5 text-emerald-400 mr-3 flex-shrink-0" />
-                  <a href="mailto:Info@smartgis.vn" className="hover:text-white transition-colors">Info@smartgis.vn</a>
+                  <a href={`mailto:${settings.contactEmail || "Info@smartgis.vn"}`} className="hover:text-white transition-colors">{settings.contactEmail || "Info@smartgis.vn"}</a>
+                </li>
+                <li className="flex items-center">
+                  <LucideIcons.Phone className="h-5 w-5 text-emerald-400 mr-3 flex-shrink-0" />
+                  <a href={`tel:${settings.contactPhone || "0123456789"}`} className="hover:text-white transition-colors">{settings.contactPhone || "0123 456 789"}</a>
                 </li>
                 <li className="flex items-center">
                   <Globe className="h-5 w-5 text-emerald-400 mr-3 flex-shrink-0" />
@@ -710,17 +763,18 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-emerald-200 selection:text-emerald-900 scroll-smooth">
-      <Navbar />
+      <Navbar data={data} />
       <main>
         <Hero data={data} />
-        <About />
+        <About data={data} />
         <Features />
         <Applications data={data} />
         <Locations data={data} />
         <AppShowcase />
-        <Pricing />
+        <Posts data={data} />
+        <Pricing data={data} />
       </main>
-      <Footer />
+      <Footer data={data} />
       <Chatbot />
     </div>
   );
