@@ -92,7 +92,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative"
           >
-            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1000&q=80" alt="SmartGIS Map Interface" className="rounded-2xl shadow-2xl border-4 border-white" referrerPolicy="no-referrer" />
+            <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1000&q=80" alt="SmartGIS Map Interface" className="rounded-2xl shadow-2xl border-4 border-white" referrerPolicy="no-referrer" />
             {/* Floating elements */}
             <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl flex items-center gap-4">
               <div className="bg-emerald-100 p-3 rounded-full">
@@ -135,7 +135,7 @@ const About = () => {
           className="mb-16 rounded-3xl overflow-hidden shadow-2xl border-4 border-white relative h-[300px] md:h-[400px] lg:h-[500px]"
         >
           <img 
-            src="https://images.unsplash.com/photo-1584467735815-f778f274e296?auto=format&fit=crop&w=1200&q=80" 
+            src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?auto=format&fit=crop&w=1200&q=80" 
             alt="SmartGIS Dashboard" 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
@@ -205,7 +205,7 @@ const Features = () => {
               className="relative rounded-2xl overflow-hidden shadow-lg border-4 border-white"
             >
               <img 
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" 
+                src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=600&q=80" 
                 alt="Data Analysis" 
                 className="w-full h-auto object-cover"
                 referrerPolicy="no-referrer"
