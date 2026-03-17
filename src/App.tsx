@@ -92,7 +92,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative"
           >
-            <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="SmartGIS Map Interface" className="rounded-2xl shadow-2xl border-4 border-white" />
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1000&q=80" alt="SmartGIS Map Interface" className="rounded-2xl shadow-2xl border-4 border-white" referrerPolicy="no-referrer" />
             {/* Floating elements */}
             <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl flex items-center gap-4">
               <div className="bg-emerald-100 p-3 rounded-full">
@@ -127,6 +127,27 @@ const About = () => {
             Được xây dựng dựa trên nền tảng Java, SmartGIS cung cấp cho người dùng một giao diện web hiện đại để quản lý hệ thống dữ liệu không gian, kết nối dữ liệu thuộc tính với vị trí địa lý.
           </p>
         </div>
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-16 rounded-3xl overflow-hidden shadow-2xl border-4 border-white relative h-[300px] md:h-[400px] lg:h-[500px]"
+        >
+          <img 
+            src="https://images.unsplash.com/photo-1584467735815-f778f274e296?auto=format&fit=crop&w=1200&q=80" 
+            alt="SmartGIS Dashboard" 
+            className="w-full h-full object-cover"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end">
+            <div className="p-8 md:p-12 text-white">
+              <h3 className="text-2xl md:text-3xl font-bold mb-3">Trực quan hóa dữ liệu không gian</h3>
+              <p className="text-gray-200 md:text-lg max-w-2xl">Quản lý, phân tích và khai thác dữ liệu trên nền tảng bản đồ số chuyên nghiệp, giúp tối ưu hóa quá trình ra quyết định.</p>
+            </div>
+          </div>
+        </motion.div>
+
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {basics.map((item, index) => (
             <motion.div 
@@ -169,7 +190,7 @@ const Features = () => {
             <p className="text-gray-600 mb-8">
               Mọi thứ xảy ra ở một vị trí cụ thể đều yêu cầu lập luận và phân tích không gian. SmartGIS mang đến bộ công cụ toàn diện để giải quyết các vấn đề "địa lý" của bạn.
             </p>
-            <ul className="space-y-3">
+            <ul className="space-y-3 mb-10">
               {['Dễ dàng tra cứu lịch sử bản đồ', 'Lưu & tra cứu thông tin bản đồ', 'Đọc các lớp dữ liệu bản đồ', 'Thống kê chi tiết'].map((item, i) => (
                 <li key={i} className="flex items-center text-gray-700 font-medium">
                   <CheckCircle2 className="h-5 w-5 text-emerald-500 mr-3" />
@@ -177,6 +198,20 @@ const Features = () => {
                 </li>
               ))}
             </ul>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="relative rounded-2xl overflow-hidden shadow-lg border-4 border-white"
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" 
+                alt="Data Analysis" 
+                className="w-full h-auto object-cover"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-emerald-900/10 mix-blend-multiply"></div>
+            </motion.div>
           </div>
           <div className="md:w-2/3 grid sm:grid-cols-2 gap-6">
             {features.map((feature, index) => (
