@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
+import * as LucideIcons from 'lucide-react';
 import { 
   Map, Globe, Layers, Search, FileText, Users, BarChart3, 
   MapPin, Mail, Building, Leaf, CloudRain, Landmark, 
@@ -7,6 +8,12 @@ import {
   Eye, Server, GraduationCap, Smartphone, Apple, Play
 } from 'lucide-react';
 import Chatbot from './components/Chatbot';
+
+// Helper to render dynamic icons
+const renderIcon = (iconName: string, className: string) => {
+  const IconComponent = (LucideIcons as any)[iconName] || LucideIcons.Map;
+  return <IconComponent className={className} />;
+};
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -60,7 +67,13 @@ const Navbar = () => {
   );
 };
 
-const Hero = () => {
+const Hero = ({ data }: { data?: any }) => {
+  const heroData = data?.hero || {
+    title: "Bản Đồ Thông Minh \n SmartGIS",
+    subtitle: "Giải pháp thông minh ứng dụng công nghệ GIS. Nơi cung cấp các dịch vụ bản đồ số, giúp người dùng kết nối dữ liệu thuộc tính với vị trí địa lý một cách trực quan và hiệu quả.",
+    image: "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1000&q=80"
+  };
+
   return (
     <section className="pt-32 pb-20 bg-gradient-to-br from-emerald-50 to-teal-100 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -70,12 +83,11 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-              Bản Đồ Thông Minh <br/>
-              <span className="text-emerald-600">SmartGIS</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6 whitespace-pre-line">
+              {heroData.title}
             </h1>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              Giải pháp thông minh ứng dụng công nghệ GIS. Nơi cung cấp các dịch vụ bản đồ số, giúp người dùng kết nối dữ liệu thuộc tính với vị trí địa lý một cách trực quan và hiệu quả.
+              {heroData.subtitle}
             </p>
             <div className="flex flex-wrap gap-4">
               <a href="#features" className="bg-emerald-600 text-white px-8 py-3 rounded-full font-medium hover:bg-emerald-700 transition-colors shadow-lg shadow-emerald-200">
@@ -92,7 +104,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative"
           >
-            <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1000&q=80" alt="Giao diện hệ thống thông tin địa lý SmartGIS - Bản đồ số và phân tích dữ liệu không gian" className="rounded-2xl shadow-2xl border-4 border-white" referrerPolicy="no-referrer" />
+            <img src={heroData.image} alt="Giao diện hệ thống thông tin địa lý SmartGIS" className="rounded-2xl shadow-2xl border-4 border-white" referrerPolicy="no-referrer" />
             {/* Floating elements */}
             <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl flex items-center gap-4">
               <div className="bg-emerald-100 p-3 rounded-full">
@@ -235,57 +247,8 @@ const Features = () => {
   );
 };
 
-const Applications = () => {
-  const apps = [
-    { 
-      icon: <Building className="h-8 w-8"/>, 
-      title: "Quy hoạch đô thị", 
-      desc: "Quản lý, giám sát quy hoạch xây dựng. Khai thác CSDL trên bản đồ số, hỗ trợ cấp phép xây dựng.",
-      image: "https://images.unsplash.com/photo-1614511113619-1582e05f6392?auto=format&fit=crop&w=600&q=80"
-    },
-    { 
-      icon: <Leaf className="h-8 w-8"/>, 
-      title: "Nông nghiệp", 
-      desc: "Kiểm soát hiểm họa, mô hình phân tích đất/mưa, canh tác chính xác, dự đoán sản lượng.",
-      image: "https://images.unsplash.com/photo-1519999482648-25049ddd37b1?auto=format&fit=crop&w=600&q=80"
-    },
-    { 
-      icon: <Globe className="h-8 w-8"/>, 
-      title: "Môi trường", 
-      desc: "Quản lý tài nguyên, đánh giá sự cố môi trường, hoạch định chính sách.",
-      image: "https://images.unsplash.com/photo-1582653291997-059f5f4780f2?auto=format&fit=crop&w=600&q=80"
-    },
-    { 
-      icon: <CloudRain className="h-8 w-8"/>, 
-      title: "Khí tượng thủy văn", 
-      desc: "Theo dõi và phân tích dữ liệu thời tiết, thủy văn theo không gian.",
-      image: "https://images.unsplash.com/photo-1534043464124-3be32fe000c9?auto=format&fit=crop&w=600&q=80"
-    },
-    { 
-      icon: <Car className="h-8 w-8"/>, 
-      title: "Giao thông", 
-      desc: "Quản lý hạ tầng giao thông, phân tích luồng tuyến và điều phối.",
-      image: "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?auto=format&fit=crop&w=600&q=80"
-    },
-    { 
-      icon: <Landmark className="h-8 w-8"/>, 
-      title: "Chính quyền địa phương", 
-      desc: "Tích hợp dịch vụ công, minh bạch thông tin quy hoạch cho người dân.",
-      image: "https://images.unsplash.com/photo-1526778548025-fa2fbf8b1c0b?auto=format&fit=crop&w=600&q=80"
-    },
-    { 
-      icon: <HeartPulse className="h-8 w-8"/>, 
-      title: "Y tế", 
-      desc: "Bản đồ cơ sở y tế, phân tích dịch tễ học theo khu vực.",
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80"
-    },
-    { 
-      icon: <GraduationCap className="h-8 w-8"/>, 
-      title: "Giáo dục", 
-      desc: "Quản lý mạng lưới trường học, thông tin tuyển sinh theo tuyến.",
-      image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80"
-    },
-  ];
+const Applications = ({ data }: { data?: any }) => {
+  const apps = data?.features || [];
 
   return (
     <section id="applications" className="py-20 bg-white">
@@ -317,7 +280,7 @@ const Applications = () => {
               </div>
               <div className="p-6 flex-1 flex flex-col">
                 <div className="text-emerald-600 group-hover:text-white mb-4 transition-colors">
-                  {app.icon}
+                  {renderIcon(app.icon, "h-8 w-8")}
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 group-hover:text-white mb-2 transition-colors">{app.title}</h3>
                 <p className="text-gray-600 group-hover:text-emerald-50 text-sm transition-colors">{app.desc}</p>
@@ -629,15 +592,65 @@ const Footer = () => {
   );
 };
 
+const Locations = ({ data }: { data?: any }) => {
+  const locations = data?.locations || [];
+
+  if (locations.length === 0) return null;
+
+  return (
+    <section className="py-20 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Mạng Lưới Vị Trí</h2>
+          <p className="text-gray-600 text-lg">
+            Các điểm triển khai hệ thống SmartGIS trên toàn quốc.
+          </p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {locations.map((loc: any, index: number) => (
+            <motion.div 
+              key={loc.id || index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-start gap-4"
+            >
+              <div className="bg-emerald-100 p-3 rounded-full text-emerald-600">
+                <MapPin className="h-6 w-6" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-1">{loc.name}</h3>
+                <p className="text-gray-500 text-sm">Vĩ độ: {loc.lat}</p>
+                <p className="text-gray-500 text-sm">Kinh độ: {loc.lng}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 export default function App() {
+  const [data, setData] = useState<any>(null);
+
+  useEffect(() => {
+    fetch('/api/data')
+      .then(res => res.json())
+      .then(json => setData(json))
+      .catch(err => console.error(err));
+  }, []);
+
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-emerald-200 selection:text-emerald-900 scroll-smooth">
       <Navbar />
       <main>
-        <Hero />
+        <Hero data={data} />
         <About />
         <Features />
-        <Applications />
+        <Applications data={data} />
+        <Locations data={data} />
         <AppShowcase />
         <Pricing />
       </main>
