@@ -130,6 +130,13 @@ const About = () => {
     { icon: <BarChart3 className="h-6 w-6" />, title: "Phân tích dữ liệu", desc: "Công cụ phân tích dữ liệu không gian mạnh mẽ." },
   ];
 
+  const team = [
+    { name: "Nguyễn Văn A", role: "Giám đốc điều hành", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80" },
+    { name: "Trần Thị B", role: "Trưởng phòng Kỹ thuật", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=300&q=80" },
+    { name: "Lê Văn C", role: "Chuyên gia GIS", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80" },
+    { name: "Phạm Thị D", role: "Quản lý Dự án", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80" }
+  ];
+
   return (
     <section id="about" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -138,6 +145,29 @@ const About = () => {
           <p className="text-gray-600 text-lg">
             Được xây dựng dựa trên nền tảng Java, SmartGIS cung cấp cho người dùng một giao diện web hiện đại để quản lý hệ thống dữ liệu không gian, kết nối dữ liệu thuộc tính với vị trí địa lý.
           </p>
+        </div>
+
+        {/* Team Section */}
+        <div className="mb-20">
+          <h3 className="text-2xl font-bold text-center text-gray-900 mb-10">Đội Ngũ Cốt Lõi</h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {team.map((member, index) => (
+              <motion.div 
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="text-center"
+              >
+                <div className="relative w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-emerald-50 shadow-sm">
+                  <img src={member.image} alt={member.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                </div>
+                <h4 className="text-lg font-bold text-gray-900">{member.name}</h4>
+                <p className="text-emerald-600 text-sm font-medium">{member.role}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
         
         <motion.div 
@@ -377,7 +407,8 @@ const Pricing = () => {
   const tabs = [
     "Thiết kế - Khởi tạo",
     "Phần mềm tra cứu",
-    "Chuyển giao License"
+    "Chuyển giao License",
+    "Câu hỏi thường gặp"
   ];
 
   return (
@@ -534,6 +565,41 @@ const Pricing = () => {
                 </div>
                 <div className="p-4 bg-gray-50 text-sm text-gray-500 italic border-t border-gray-200">
                   ** Các phí trên không bao gồm máy chủ.
+                </div>
+              </div>
+            )}
+
+            {/* FAQ Tab */}
+            {activeTab === 3 && (
+              <div className="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-200 p-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-8 border-b border-gray-100 pb-4">Câu hỏi thường gặp (FAQ)</h3>
+                <div className="space-y-6">
+                  {[
+                    {
+                      q: "SmartGIS có hỗ trợ dùng thử không?",
+                      a: "Có, chúng tôi cung cấp gói dùng thử 14 ngày miễn phí với đầy đủ các tính năng cơ bản để bạn trải nghiệm trước khi quyết định."
+                    },
+                    {
+                      q: "Chi phí bảo trì hàng năm được tính như thế nào?",
+                      a: "Chi phí bảo trì thường chiếm từ 15-20% giá trị hợp đồng phần mềm, bao gồm cập nhật tính năng mới, vá lỗi và hỗ trợ kỹ thuật 24/7."
+                    },
+                    {
+                      q: "Dữ liệu của tôi có được bảo mật an toàn không?",
+                      a: "Hoàn toàn an toàn. SmartGIS áp dụng các tiêu chuẩn bảo mật quốc tế, mã hóa dữ liệu đầu cuối và sao lưu định kỳ trên hệ thống máy chủ độc lập."
+                    },
+                    {
+                      q: "Thời gian triển khai hệ thống mất bao lâu?",
+                      a: "Thời gian triển khai phụ thuộc vào quy mô và độ phức tạp của dữ liệu, thông thường từ 2 đến 8 tuần làm việc kể từ khi ký hợp đồng."
+                    }
+                  ].map((faq, i) => (
+                    <div key={i} className="border-b border-gray-100 pb-6 last:border-0 last:pb-0">
+                      <h4 className="text-lg font-semibold text-emerald-700 mb-2 flex items-start gap-2">
+                        <span className="bg-emerald-100 text-emerald-700 rounded-full w-6 h-6 flex items-center justify-center text-sm flex-shrink-0 mt-0.5">Q</span>
+                        {faq.q}
+                      </h4>
+                      <p className="text-gray-600 pl-8 leading-relaxed">{faq.a}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
